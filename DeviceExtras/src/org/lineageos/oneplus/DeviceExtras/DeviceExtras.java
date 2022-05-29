@@ -52,7 +52,6 @@ import java.util.Random;
 
 import com.plattysoft.leonids.ParticleSystem;
 
-import org.lineageos.oneplus.DeviceExtras.doze.DozeSettingsActivity;
 import org.lineageos.oneplus.DeviceExtras.FileUtils;
 import org.lineageos.oneplus.DeviceExtras.modeswitch.*;
 import org.lineageos.oneplus.DeviceExtras.panelsettings.PanelSettingsActivity;
@@ -80,7 +79,6 @@ public class DeviceExtras extends PreferenceFragment
     private static TwoStatePreference mTouchBoostModeSwitch;
 
     public static final String KEY_CATEGORY_DISPLAY = "display";
-    public static final String KEY_DOZE = "advanced_doze_settings";
     public static final String KEY_PANEL_MODES = "panel_modes";
     public static final String KEY_KCAL = "kcal";
     public static final String KEY_P3_SWITCH = "p3";
@@ -182,14 +180,6 @@ public class DeviceExtras extends PreferenceFragment
         }
 
         boolean displayCategory = false;
-
-        // DozeSettings Activity
-        mDozeSettings = (Preference)findPreference(KEY_DOZE);
-        mDozeSettings.setOnPreferenceClickListener(preference -> {
-            Intent intent = new Intent(getActivity().getApplicationContext(), DozeSettingsActivity.class);
-            startActivity(intent);
-            return true;
-        });
 
         // Panel Modes
         displayCategory = displayCategory | isFeatureSupported(context, R.bool.config_deviceSupportsPanelModes);
