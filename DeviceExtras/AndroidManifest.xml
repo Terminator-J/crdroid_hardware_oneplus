@@ -64,8 +64,6 @@
         <activity
             android:name=".DeviceExtras" />
         <activity
-            android:name=".camera.KeyHandler" />
-        <activity
             android:name=".slider.KeyHandler" />
         <activity
             android:name=".touch.KeyHandler" />

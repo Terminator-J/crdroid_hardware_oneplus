@@ -35,7 +35,6 @@ android_app {
         "org.lineageos.platform.internal",
         "org.lineageos.settings.resources",
         "particles",
-        "vendor.oneplus.hardware.camera-V1.0-java",
     ],
 
     resource_dirs: ["res"],
