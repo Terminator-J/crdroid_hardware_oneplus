@@ -73,9 +73,11 @@ public class DeviceExtras extends PreferenceFragment
     public static final String KEY_CATEGORY_AUDIO = "audio";
 
     public static final String KEY_CATEGORY_CPU = "cpu";
+    public static final String KEY_GPU_BOOST_AMOUNT = "gpu_boost";
     public static final String KEY_GPU_THROTTLING_SWITCH = "gpu_throttling";
     public static final String KEY_POWER_EFFICIENT_WQ_SWITCH = "power_efficient_workqueue";
     public static final String KEY_TOUCHBOOST_SWITCH = "touchboost";
+    private AdrenoGPUBoostPreference mGPUBoostAmount;
     private static TwoStatePreference mGPUThrottlingModeSwitch;
     private static TwoStatePreference mPowerEfficientWorkqueueModeSwitch;
     private static TwoStatePreference mTouchBoostModeSwitch;
@@ -264,6 +266,18 @@ public class DeviceExtras extends PreferenceFragment
 
         boolean cpuCategory = false;
 
+        // GPU Boost
+        cpuCategory = cpuCategory | isFeatureSupported(context, R.bool.config_deviceSupportsGPUBoost);
+        if (isFeatureSupported(context, R.bool.config_deviceSupportsGPUBoost)) {
+            mGPUBoostAmount = (AdrenoGPUBoostPreference) findPreference(KEY_GPU_BOOST_AMOUNT);
+            if (mGPUBoostAmount != null) {
+                mGPUBoostAmount.setEnabled(AdrenoGPUBoostPreference.isSupported(getContext()));
+            }
+        }
+        else {
+           findPreference(KEY_GPU_BOOST_AMOUNT).setVisible(false);
+        }
+
         // GPU Throttling
         cpuCategory = cpuCategory | isFeatureSupported(context, R.bool.config_deviceSupportsGPUThrottling);
         if (isFeatureSupported(context, R.bool.config_deviceSupportsGPUThrottling)) {
@@ -273,10 +287,6 @@ public class DeviceExtras extends PreferenceFragment
         }
         else {
            findPreference(KEY_GPU_THROTTLING_SWITCH).setVisible(false);
-        }
-
-        if (!cpuCategory) {
-            getPreferenceScreen().removePreference((Preference) findPreference(KEY_CATEGORY_CPU));
         }
 
         // Power Efficient Workqueue
